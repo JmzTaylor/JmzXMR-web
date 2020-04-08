@@ -1,0 +1,7 @@
+docker/letsencrypt/dns-conf/cloudflare.ini
+.env
+public_html/vendor
+public_html/composer.lock
+composer.phar
+.idea
+server/mariadb/docker-entrypoint-initdb.d/mysql2.sql

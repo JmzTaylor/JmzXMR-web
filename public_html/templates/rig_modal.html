@@ -1,0 +1,55 @@
+<!--
+  ~ Jmz XMR
+  ~ Copyright (C) 2020  James Taylor
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<div class="modal fade" id="addRig" tabindex="-1" role="dialog" aria-labelledby="addRigLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRigLabel">Add Rig</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addRigForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="AddRigName" class="bmd-label-floating">Rig Name</label>
+                        <input type="text" class="form-control" name="AddRigName" id="AddRigName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AddRigUrl" class="bmd-label-floating">Rig IP Address or domain</label>
+                        <input type="url" class="form-control" name="AddRigUrl" id="AddRigUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AddRigPort" class="bmd-label-floating">Rig Port</label>
+                        <input type="number" class="form-control" name="AddRigPort" id="AddRigPort" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AddRigAccessToken" class="bmd-label-floating">Rig Access Token</label>
+                        <input type="password" class="form-control" name="AddRigAccessToken" id="AddRigAccessToken">
+                    </div>
+                    <input type="hidden" name="editRigId" id="editRigId" value="">
+                    <button type="submit" class="btn modalButton editSubmit" onclick="addRig()"
+                            data-dismiss="modal">Submit
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

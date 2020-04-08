@@ -1,0 +1,126 @@
+<!--
+  ~ Jmz XMR
+  ~ Copyright (C) 2020  James Taylor
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Rig Listing</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                        <tr>
+                            <th>Rig Name</th>
+                            <th>Worker ID</th>
+                            <th>Current Difficulty</th>
+                            <th>Current Hashrate</th>
+                            <th>Miner Version</th>
+                            <th>Uptime</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rig in rigs %}
+                        <tr>
+                            <td>{{ rig.rigName }}</td>
+                            <td>{{ rig.workerId }}</td>
+                            <td>{{ rig.diffCurrent }}</td>
+                            <td>{{ rig.currentHash }} KH/s</td>
+                            {% if rig.update == 1 %}
+                            <td style="color: red !important">{{ rig.minerVersion }} (Update Available)</td>
+                            {% else %}
+                            <td>{{ rig.minerVersion }}</td>
+                            {% endif %}
+                            <td>{{ rig.uptime }}</td>
+                            <td>
+                                <a href="#">
+                                    <i class="material-icons actions deleteRigButton" onclick="deleteRigConfirm(this.id)" id="{{ rig.rigId }}">delete</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons actions editRigButton" onClick="editRig(this.id)" id="{{ rig.rigId }}">edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ total }} KH/s</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for pool in pools %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Pool Stats - {{ pool.poolName }}</h4>
+                <h6 class="card-subtitle">Address - {{ pool.address }}</h6>
+                <h6 class="card-subtitle">Current earned daily (estimated based on current total hashrate) - {{ dailynumbers.monero }}ɱ/${{ dailynumbers.usd }}</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <tr>
+                            <th>Total Hashes</th>
+                            <th>Valid Shares</th>
+                            <th>Invalid Shares</th>
+                            <th>Reported Hashrate</th>
+                            <th>Amount Paid</th>
+                            <th>Amount Due</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ pool.totalHashes }}</td>
+                            <td>{{ pool.validShares }}</td>
+                            <td>{{ pool.invalidShares }}</td>
+                            <td>{{ pool.totalHashrate }} KH/s</td>
+                            <td>{{ pool.amtPaid }} ɱ</td>
+                            <td>{{ pool.amtDue }} ɱ</td>
+                            <td>
+                                <a href="#">
+                                    <i class="material-icons actions deleteRigButton" onclick="deletePoolConfirm(this.id)" id="{{ pool.id }}">delete</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons actions editRigButton" onClick="editPool(this.id)" id="{{ pool.id }}">edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

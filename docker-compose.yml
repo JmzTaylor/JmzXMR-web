@@ -1,0 +1,64 @@
+version: "3.1"
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./public_html:/code
+      - .env:/code/.env
+      - ./server/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./server/nginx/logs:/var/log/nginx
+    links:
+      - php
+  mariadb:
+    build:
+      context: ./server/mariadb
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./server/mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  php:
+    build:
+      context: ./server/php
+    volumes:
+      - ./public_html:/code
+      - .env:/code/.env
+    env_file:
+      - .env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "9000:9000"
+    links:
+      - mariadb
+  composer:
+    image: composer:latest
+    dns:
+      - 8.8.8.8
+    volumes:
+      - ./public_html:/app
+    command: install
+  cron:
+    build:
+      context: ./server/cron
+    depends_on:
+      - composer
+    env_file:
+      - .env
+    volumes:
+      - ./public_html:/code
+      - .env:/code/.env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
