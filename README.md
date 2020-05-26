@@ -1,8 +1,6 @@
 Jmz XMR
 =
 
-This is highly deprecated and isn't being maintained anymore.  There are a few bugs but overall works like its supposed to.
-
 I created this because I am a huge fan of self hosting anything and everything.  And since Monero is meant to be private, only made sense to have full control over monitoring
 
 Features:
